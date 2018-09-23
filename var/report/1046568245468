@@ -1,0 +1,11 @@
+a:5:{i:0;s:19:"formId is mandatory";i:1;s:1278:"#0 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Core/Model/Config.php(1357): Mage_Captcha_Model_Zend->__construct(Array)
+#1 /srv/projs/mgmage/src/httpdocs/app/Mage.php(463): Mage_Core_Model_Config->getModelInstance('captcha/zend', Array)
+#2 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Captcha/Helper/Data.php(72): Mage::getModel('captcha/zend', Array)
+#3 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Captcha/controllers/RefreshController.php(45): Mage_Captcha_Helper_Data->getCaptcha(NULL)
+#4 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Core/Controller/Varien/Action.php(418): Mage_Captcha_RefreshController->indexAction()
+#5 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#6 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Core/Controller/Varien/Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#7 /srv/projs/mgmage/src/httpdocs/app/code/core/Mage/Core/Model/App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#8 /srv/projs/mgmage/src/httpdocs/app/Mage.php(684): Mage_Core_Model_App->run(Array)
+#9 /srv/projs/mgmage/src/httpdocs/index.php(88): Mage::run('', 'store')
+#10 {main}";s:3:"url";s:23:"/store/captcha/refresh/";s:11:"script_name";s:16:"/store/index.php";s:4:"skin";s:7:"default";}

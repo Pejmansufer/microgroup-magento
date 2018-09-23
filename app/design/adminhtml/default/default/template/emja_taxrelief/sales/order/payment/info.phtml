@@ -1,0 +1,4 @@
+<?php if($this->getPayment()->getTaxReliefCode() || $this->getPayment()->getTaxReliefState()):?>
+<div>Tax Exempt Number: <?php echo $this->getPayment()->getTaxReliefCode()?></div>
+<div>Tax Exempt State: <?php echo $this->getPayment()->getTaxReliefState();?></div>
+<?php endif;?>

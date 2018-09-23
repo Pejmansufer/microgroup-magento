@@ -1,0 +1,5 @@
+/var/*
+!/var/.htaccess
+!/var/brute-force.ini
+!/var/package
+!/var/report

@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <ElectroidLab_StackoverflowCheckout>
+            <active>true</active>
+            <codePool>local</codePool>
+        </ElectroidLab_StackoverflowCheckout>
+    </modules>
+</config>

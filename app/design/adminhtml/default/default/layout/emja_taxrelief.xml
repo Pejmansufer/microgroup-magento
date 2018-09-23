@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout>
+    <adminhtml_sales_order_view>
+        <reference name="order_payment">
+            <block type="emja_taxrelief/adminhtml_sales_order_payment_info" template="emja_taxrelief/sales/order/payment/info.phtml" name="emja_taxrelief_info" />
+        </reference>
+    </adminhtml_sales_order_view>
+    <adminhtml_sales_order_create_index>
+        <reference name="data">
+            <block type="adminhtml/sales_order_create_billing_method" template="sales/order/create/abstract.phtml" name="billing_method">
+                <block type="adminhtml/sales_order_create_billing_method_form" template="emja_taxrelief/sales/order/create/billing/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_index>
+    <adminhtml_sales_order_create_load_block_billing_method>
+        <reference name="billing_method">
+                <block type="adminhtml/sales_order_create_billing_method_form" template="emja_taxrelief/sales/order/create/billing/method/form.phtml" name="form" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_billing_method>    
+</layout>

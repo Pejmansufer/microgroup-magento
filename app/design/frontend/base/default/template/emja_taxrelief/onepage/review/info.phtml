@@ -1,0 +1,6 @@
+<?php if($this->getPayment()->getTaxReliefCode() || $this->getPayment()->getTaxReliefState()):?>
+<ul>
+    <li><strong><?php echo Mage::getStoreConfig('emja_taxrelief/labels/tax_number_label') ?>:</strong> <?php echo $this->getPayment()->getTaxReliefCode()?></li>
+    <li><strong><?php echo Mage::getStoreConfig('emja_taxrelief/labels/tax_state_label') ?>:</strong> <?php echo $this->getPayment()->getTaxReliefState();?></li>
+</ul>
+<?php endif;?>

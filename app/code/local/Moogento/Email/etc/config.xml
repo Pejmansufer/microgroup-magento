@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Moogento_Email>
+      <version>1.0.0</version>
+    </Moogento_Email>
+  </modules>
+  <global>
+    <helpers>
+      <moogento_email>
+        <class>Moogento_Email_Helper</class>
+      </moogento_email>
+    </helpers>
+    <models>
+      <core>
+        <rewrite>
+          <email_template>Moogento_Email_Model_Core_Email_Template_Attach</email_template>
+        </rewrite>
+      </core>
+    </models>
+  </global>
+</config> 

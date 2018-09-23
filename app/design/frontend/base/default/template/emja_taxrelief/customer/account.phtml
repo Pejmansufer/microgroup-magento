@@ -1,0 +1,37 @@
+<?php /** @var Emja_TaxRelief_Block_Customer_Account $this */ ?>
+
+<?php
+$content = <<<TAXEXEMPT
+<div class="fieldset">
+    <h2 class="legend">{$this->__('Tax Excempt Information')}</h2>
+    <ul class="form-list">
+        <li>
+            <label for="tax_exempt_number">{$this->getTaxNumberLabel()}</label>
+            <div class="input-box">
+                <input type="text" spellcheck="false" name="tax_exempt_number" id="tax_exempt_number" value="{$this->escapeHtml($this->getTaxExemptNumberValue())}" title="{$this->getTaxNumberLabel()}" class="input-text" />
+            </div>
+        </li>
+    </ul>
+</div>
+TAXEXEMPT;
+
+$content = str_replace("\r", "", $content);
+$content = str_replace("\n", "", $content);
+?>
+<script type="text/javascript">
+    var taxExemptForm = "<?php echo addslashes($content) ?>";
+    var buttonsSet = $$('.buttons-set');
+    var placed = false;
+    <?php if (Mage::helper('core')->isModuleEnabled('EmjaInteractive_MoreCustomerEmails')) : ?>
+        var controlSet = $$('p.control');
+        if (controlSet[0]) {
+            // MCE extension found
+            controlSet[0].insert({before:taxExemptForm});
+            placed = true;
+        }
+    <?php endif; ?>
+    if (!placed && buttonsSet[0]) {
+        buttonsSet[0].insert({before:taxExemptForm});
+    }
+
+</script>
