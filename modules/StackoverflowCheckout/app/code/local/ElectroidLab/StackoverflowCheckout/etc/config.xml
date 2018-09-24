@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ElectroidLab_StackoverflowCheckout>
+            <version>0.2.0</version>
+        </ElectroidLab_StackoverflowCheckout>
+    </modules>
+    <global>
+        <blocks>
+            <checkout>
+               <rewrite>
+                   <onepage>ElectroidLab_StackoverflowCheckout_Block_Onepage</onepage>
+               </rewrite>
+           </checkout>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <ElectroidLab_StackoverflowCheckout before="Mage_Checkout">ElectroidLab_StackoverflowCheckout</ElectroidLab_StackoverflowCheckout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
+</config>

@@ -1,0 +1,7 @@
+INSTALL INSTRUCTIONS:
+
+- Unpack the .zip files
+- Copy files to your magento directory (some files in package will overwrite
+your magento files, we highly recommend renaming or backing up these files
+incase you need to revert back to these files)
+- When copying a template, copy it to your design theme/package

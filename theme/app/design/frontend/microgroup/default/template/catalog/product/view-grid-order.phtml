@@ -1,0 +1,386 @@
+<?php
+/*
+  CUSTOM VIEW FOR MICROGROUP PRODUCTS GRID VIEW
+ */
+?>
+
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?> onSubmit="return modifyCart()">
+            <?php echo $this->getBlockHtml('formkey') ?>
+
+<?php
+    //start cache if
+    $cache_name = Mage::getBaseDir('var').'/grid-cache/'. strtolower(str_replace(' ', '-', $_product->getName())) .'.html';
+if(file_exists($cache_name)):
+    $tmp_cache_name = Mage::getBaseDir('var').'/grid-cache/'. strtolower(str_replace(' ', '-', $_product->getName())) .'.html';
+echo "<!-- start cache at $tmp_cache_name -->";
+echo file_get_contents($cache_name);
+echo "<!-- end cache at $tmp_cache_name -->";
+
+else:
+    ob_start();
+?>
+
+
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript" src="<?php echo Mage::getDesign()->getSkinUrl('js/bundle-custom.js',array('_secure'=>true)); ?>"></script>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="product-view grid">
+    <div class="product-essential">
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+
+    
+            <div class="product-shop">
+
+                <?php echo $this->getChildHtml('alert_urls') ?>
+
+
+
+<?php
+    $vertical_headers = false;
+    $has_length = true;
+    $is_metric = false;
+
+    switch(ucwords(str_replace(array('_', '-'), ' ', $_product->getName()))) {
+    case 'Hypodermic Tubing':
+    $attr = array(
+        'guage'=>'Gauge',
+        'outsidediam'=>'Nom OD',
+        'wall'=>'Nom Wall',
+        'insidediam'=>'Nom ID',
+        'minod'=>'OD Min',
+        'maxod'=>'OD Max',
+        'minid'=>'ID Min',
+        'maxid'=>'ID Max',
+        'stainlesssteel'=>'Alloy',
+    );
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('hypodermic_tubing')->toHtml();
+    break;
+    case 'Fractional Tubing':
+    case 'Fractional Stainless Tubing':
+    $attr = array(
+        'outsidediam'=>'Nom OD',
+        'wall'=>'Nom Wall',
+        'insidediam'=>'Nom ID',
+        'minod'=>'OD Min',
+        'maxod'=>'OD Max',
+        'minwall'=>'Wall Min',
+        'maxwall'=>'Wall Max',
+        'stainlesssteel'=>'Alloy',
+    );
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('fractional_tubing')->toHtml();
+    break;
+    case 'Metric Tubing':
+    case 'Metric Stainless Tubing':
+    $is_metric = true;
+    $attr = array(
+        'outsidediam'=>'Nom OD',
+        'wall'=>'Nom Wall',
+        'insidediam'=>'Nom ID',
+        'minod'=>'OD Min',
+        'maxod'=>'OD Max',
+        'minwall'=>'Wall Min',
+        'maxwall'=>'Wall Max',
+        'stainlesssteel'=>'Alloy',
+    );
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('metric_tubing')->toHtml();
+    break;
+    case 'Wire Bar':
+    $attr = array(
+        'outsidediam'=>'Nom OD',
+        'minod'=>'OD Min',
+        'maxod'=>'OD Max',
+    );
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('wire_bar')->toHtml();
+    break;
+
+    case 'Saw Blades':
+    $attr = array(
+        'diameter'=>'Diameter',
+        'gritteeth'=>'Grit /# Teeth',
+        'thickness'=>'Thickness',
+        'bladematerial'=>'Type',
+        'arborsize'=>'Arbor Size',
+        'alumlt14'=>'Alum < 1/4"',
+        'alumgt14'=>'Alum > 1/4"',
+        'brasslt14'=>'Brass < 1/4"',
+        'brassgt14'=>'Brass > 1/4"',
+        'copperlt18'=>'Copper < 1/8"',
+        'coppergt18'=>'Copper > 1/8"',
+        'glass'=>'Glass',
+        'plastics'=>'Plastics',
+        'stainlesssteel'=>'Stainless Steel',
+        'steel'=>'Steel',
+        'wood'=>'Wood',
+    );
+    $has_length = false;
+    $vertical_headers = true;
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('saw_blades')->toHtml();
+    break;
+
+    case 'Tube Hose Fittings':
+    $attr = array(
+        'fittingtype'=>'Type',
+        'outsidediam'=>'Tube OD',
+        'dima'=>'A',
+        'dimb'=>'B',
+        'dimc'=>'C',
+        'dimr'=>'R',
+        'fittingwall'=>'Wall',
+    );
+    $has_length = false;
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('tube_hose_fittings')->toHtml();
+    break;
+
+    case 'Brushes':
+    $attr = array(
+        'hole_diameter'=>'Hole Diameter',
+        'brush_diameter' => 'Brush Diameter',
+        'brush_length' => 'Brush Length',
+        'stem_diameter' => 'Stem Diameter',
+        'oal' => 'OAL',
+        'grit' => 'Grit',
+    );
+    $has_length = false;
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('brushes')->toHtml();
+    break;
+
+
+    }
+
+// easy way to pass vars across tempates
+$GLOBALS['has_length'] = $has_length;
+$GLOBALS['microgroup_attrs'] = $attr;
+
+    ?>
+
+    
+                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+    <table id="sub-products">
+<thead>
+<tr>
+<th>Item #</th>
+<?php
+    foreach($attr as $key=>$val) {
+
+        //if($val == 'Alloy') continue;
+        
+        if($vertical_headers)
+            echo "<th class=\"vertical-text\" data-grp=\"$key\"><span>$val</span></th>";
+        else            
+            echo "<th data-grp=\"$key\">$val</th>";
+    }
+    ?>
+<?php if ($has_length): ?>
+<th>Size</th>
+<?php endif; ?>
+<th>Price</th>
+<th>Qty</th>
+</tr>
+</thead>
+<tbody>
+<?php
+    $GLOBALS['microgroup_filter'] = array();
+
+echo str_replace('* Required Fields', '', strip_tags($this->getChildChildHtml('container1', '', true, true), '<tr><td><select><option><span><input><script>'));
+?>
+</tbody>
+
+    </table>
+<?php if($is_metric): ?>
+<p class="align-right">* Dimensions are in millimeters and prices are in USD.</p>
+<?php else: ?>
+<p class="align-right">* Dimensions are in inches and prices are in USD</p>
+<?php endif; ?>
+    <script>
+    $j(document).ready(function() {
+        $j(".bundle-option-select").each(function() {
+            bundle.changeSelection(this);
+        });
+        $j(".stickit").stickit({scope:StickScope.Document});
+<?php if(!$vertical_headers): ?>
+        $j("#sub-products").stickyTableHeaders();
+        //$j("#sub-products thead").stickit({scope:StickScope.Document});
+        
+<?php endif; ?>
+        $j('#bundled-sidebar-toggle div').toggleSingle();
+    });
+    </script>
+                <?php endif;?>
+
+
+
+            </div>
+
+            <div class="add-to-cart-wrapper">
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <?php echo $this->getChildHtml('related_products') ?>
+
+            <div class="clearer"></div>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif;?>
+        <script type="text/javascript">
+        //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    $j('#sub-products tr').each(function() {
+                        var t = $j(this);
+                        if (t.find('input.qty').val() == 0) {
+                            //t.remove();
+                            t.find('.bundle-option-select').val('');
+                            t.find('input[type=hidden]').val('');
+                            t.find('input.qty').prop('disabled', true);
+                        }
+                    });
+                    
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+        //]]>
+        </script>
+    </div>
+
+    <?php echo $this->getChildHtml('upsell_products') ?>
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+
+</div>
+
+
+<div id="bundled-sidebar">
+<div class="stickit">
+<?php echo $this->getChildHtml('bundle_prices') ?>
+    <button type="button" title="Add to Cart" class="store-button" onclick="productAddToCartForm.submit(this)">Add to Cart</button>
+</div>
+<div id="prod-submenu">
+<?php
+                switch($prod_slug) {
+                case 'male_luer':
+                case 'male_luer_lock':
+                case 'female_luer':
+                case 'female_luer_thread':
+                case 'male_straight_thread':
+                case 'male_pipe_thread':
+                case 'female_straight_thread':
+                case 'female_pipe_thread':
+                case 'barb':
+               	case 'sinker':
+               	echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_nav_expanded')->toHtml();
+               	break;
+                default:
+               	echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_nav_home')->toHtml();
+                break;
+
+               	}
+?>
+</div>
+
+    <div id="bundled-sidebar-toggle">
+    <?php 
+    foreach($GLOBALS['microgroup_filter'] as $key=>$val) {
+        echo "<div data-grp=\"$key\">$attr[$key]&nbsp;&nbsp;<a onclick=\"clearFilter('$key')\" class=\"hidden\">(clear)</a><span class=\"view-more-btn\">[+]</span></div>";
+        echo "<ul class=\"no-display\" data-grp=\"$key\">";
+        foreach($val as $key2=>$num) {
+	$key2 = str_replace ('"', '&quot;', $key2);
+            echo "<li><input onChange=\"filter()\" type=\"checkbox\" data-grp=\"$key\" data-val=\"$key2\" /> $key2 <span class=\"count\">($num)</span></li>";
+        }
+        echo '</ul>';
+    }
+
+    ?>
+    </div>
+</div>
+
+
+<?php
+// end cache if
+
+$content = ob_get_clean();
+echo $content;
+file_put_contents($cache_name, $content);
+endif;
+
+?>
+
+        </form>
+<script type="text/javascript">
+    function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+function Scrolldown() {
+    sku = getParameterByName('sku');
+jQuery('#'+sku).css("background-color", "#FFFACD");
+        jQuery('html, body').animate({
+    scrollTop: jQuery('#'+sku).offset().top -60
+}, 1000);
+
+}
+Scrolldown();
+</script>

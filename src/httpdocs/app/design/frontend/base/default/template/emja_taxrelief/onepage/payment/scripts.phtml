@@ -1,0 +1,12 @@
+var taxReliefRegionUpdater = new RegionUpdater('emja_taxrelief:country_id', 'emja_taxrelief:region', 'emja_taxrelief_region_id', countryRegions, undefined, undefined);
+
+enableTaxReliefInputs = function(){
+    $('customer-has-tax-relief').removeAttribute('disabled');
+    $$('#customer-tax-relief-info input').each(function(e){$(e).removeAttribute('disabled')});
+    $$('#customer-tax-relief-info select').each(function(e){$(e).removeAttribute('disabled')});
+    if($('emja_taxrelief_region_id').value){
+        $('emja_taxrelief:region').value=$$('select#emja_taxrelief_region_id option[value='+$('emja_taxrelief_region_id').value+']')[0].innerHTML;
+    }
+    $$('#customer-tax-relief-info em').each(function(e){e.show();});
+};
+setTimeout("enableTaxReliefInputs()",300); 

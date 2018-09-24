@@ -1,0 +1,45 @@
+
+<?php
+/*
+  CUSTOM VIEW FOR MICROGROUP PRODUCTS 
+  this script will load either view-grid-order.phtml
+  or view-other.phtml
+*/
+
+$_product = $this->getProduct();
+
+switch(ucwords(str_replace(array('_', '-'), ' ', $_product->getName()))) {
+case 'Hypodermic Tubing':
+case 'Fractional Tubing':
+case 'Fractional Stainless Tubing':
+case 'Metric Tubing':
+case 'Metric Stainless Tubing':
+case 'Wire Bar':
+case 'Saw Blades':
+case 'Tube Hose Fittings':
+case 'Brushes':
+    $GLOBALS['view_type'] = 'grid';
+    include(__DIR__.'/view-grid-order.phtml');
+    break;
+
+case 'Compression Fittings':
+case 'Saw':
+case 'Barb':
+case 'Female Luer':
+case 'Female Luer Thread':
+case 'Female Pipe Thread':
+case 'Female Straight Thread':
+case 'Male Luer':
+case 'Male Luer Lock':
+case 'Male Pipe Thread':
+case 'Male Straight Thread':
+case 'Sinker':
+    $GLOBALS['view_type'] = 'other';
+    include(__DIR__.'/view-other.phtml');
+    break;
+
+default:
+    $GLOBALS['view_type'] = 'orig';
+    include(__DIR__.'/view-orig.phtml');
+    break;
+}

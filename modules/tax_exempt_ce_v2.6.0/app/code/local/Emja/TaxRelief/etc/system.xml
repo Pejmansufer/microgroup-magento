@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <emja_taxrelief>
+            <label>Sales Tax Exempt</label>
+            <tab>sales</tab>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <sort_order>299</sort_order>
+            <groups>
+                <options>
+                    <label>Required Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <is_require_tax_number translate="label">
+                            <label>Tax Exempt Number Required</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </is_require_tax_number>
+                        <is_require_tax_state translate="label">
+                            <label>Tax Exempt State Required</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </is_require_tax_state>
+                    </fields>
+                </options>
+                <labels>
+                    <label>Frontend Labels</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <checkbox_text translate="label">
+                            <label>Checkbox Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkbox_text>
+                        <tax_number_label translate="label">
+                            <label>Tax Number Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tax_number_label>
+                        <tax_state_label translate="label">
+                            <label>Tax State Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tax_state_label>
+                        <above_tax_number translate="label">
+                            <label>Text Above Tax Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </above_tax_number>
+                        <above_tax_state translate="label">
+                            <label>Text Above Tax State</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </above_tax_state>
+                    </fields>                    
+                </labels>
+				<settings>
+                    <label>Tax Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <tax_rate translate="label">
+                            <label>Tax Rate</label>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tax_rate>
+						<allowspecific translate="label">
+                            <label>Applicable Countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>20</sort_order>
+                            <source_model>emja_taxrelief/source_config_tax_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Specific Countries Only</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>30</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </specificcountry>
+                        <allowgroups translate="label">
+                            <label>Applicable Customer Groups</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>emja_taxrelief/source_config_tax_allowgroups</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </allowgroups>
+                        <specific_groups translate="label">
+                            <label>Specific Customer Groups Only</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>emja_taxrelief/source_config_customer_group_multiselect</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <allowgroups>1</allowgroups>
+                            </depends>
+                        </specific_groups>
+					</fields>
+                </settings>
+            </groups>
+        </emja_taxrelief>
+    </sections>
+</config>

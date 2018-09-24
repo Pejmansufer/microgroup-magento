@@ -1,0 +1,165 @@
+<?php
+/*
+  CUSTOM VIEW FOR MICROGROUP PRODUCTS OTHER VIEW
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript" src="<?php echo Mage::getDesign()->getSkinUrl('js/bundle.js'); ?>"></script>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="product-view other">
+    <div class="product-essential">
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?> onSubmit="return modifyCart()">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+
+    <script>
+    $j(document).ready(function() {
+        $j(".stickit").stickit({scope:StickScope.Document});
+    });
+    </script>
+    
+            <div class="product-shop">
+
+                <?php echo $this->getChildHtml('alert_urls') ?>
+
+<?php
+    $prod_slug = strtolower(str_replace(' ', '_', $_product->getName()));
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId($prod_slug)->toHtml();
+
+?>    
+    
+                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+<div class="<?php echo $prod_slug ?>">
+<?php
+echo $this->getChildChildHtml('container1', '', true, true);
+?>
+</div>
+
+
+                <?php endif;?>
+
+            </div>
+
+            <div class="add-to-cart-wrapper">
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <?php echo $this->getChildHtml('related_products') ?>
+
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif;?>
+        </form>
+        <script type="text/javascript">
+        //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    $j('#product-options-wrapper div').each(function() {
+                        var t = $j(this);
+                        if (t.find('input.qty').val() == 0) {
+                            //t.remove();
+                            t.find('input[type=hidden]').val('');
+                            t.find('input.qty').prop('disabled', true);
+                        }
+                    });
+                    
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+        //]]>
+        </script>
+    </div>
+
+
+</div>
+
+
+<div class="col-left sidebar">
+<div class="stickit">
+<?php echo $this->getChildHtml('bundle_prices') ?>
+    <button type="button" title="Add to Cart" class="store-button" onclick="productAddToCartForm.submit(this)">Add to Cart</button>
+</div>
+                
+<div id="prod-submenu">
+<?php
+                switch($prod_slug) {
+                case 'male_luer':
+                case 'male_luer_lock':
+                case 'female_luer':
+                case 'female_luer_thread':
+                case 'male_straight_thread':
+                case 'male_pipe_thread':
+                case 'female_straight_thread':
+                case 'female_pipe_thread':
+                case 'barb':
+                case 'sinker':
+                echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_nav_expanded')->toHtml();
+                break;
+                default:
+                echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_nav_home')->toHtml();
+                break;
+
+                }
+?>
+</div>
+</div>
+
+

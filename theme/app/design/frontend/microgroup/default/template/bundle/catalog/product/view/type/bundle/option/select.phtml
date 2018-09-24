@@ -1,0 +1,126 @@
+
+<?php /* @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select */ ?>
+<?php $_option      = $this->getOption(); ?>
+<?php $_selections  = $_option->getSelections(); ?>
+<?php $_default     = $_option->getDefaultSelection(); ?>
+<?php list($_defaultQty, $_canChangeQty) = $this->_getDefaultValues(); ?>
+<?php $tierPriceHtml = ''; ?>
+
+
+<?php if($GLOBALS['view_type'] == 'grid'):
+/*** GRID PRODUCT VIEW ***/
+
+?>
+
+<tr id="<?php echo strtoupper(preg_replace("/[^A-Za-z0-9 ]/", '', $_selections[0]->getDisplayName())); ?>">
+<td>
+<?php echo $_selections[0]->getDisplayName() ?>
+</td>
+<?php
+foreach($GLOBALS['microgroup_attrs']  as $key=>$val) {
+    $method = 'get'.ucwords($key);
+    $newVal =  $_selections[0]->$method();
+
+    //if($val != 'Alloy')
+        echo "<td>$newVal</td>";
+
+    //$GLOBALS['microgroup_filter']
+    if(!isset($GLOBALS['microgroup_filter'][$key]))
+        $GLOBALS['microgroup_filter'][$key] = array();
+
+    if(!isset($GLOBALS['microgroup_filter'][$key][$newVal]))
+        $GLOBALS['microgroup_filter'][$key][$newVal] = 1;
+    else
+        $GLOBALS['microgroup_filter'][$key][$newVal]++;
+}
+
+?>
+<?php if ($GLOBALS['has_length']): ?>
+<td>
+    <?php if ($this->_showSingle()): ?>
+        <?php echo $this->getSelectionTitlePrice($_selections[0]); ?>
+        <?php if ($_selections[0]->getSelectionCanChangeQty()): ?>
+            <?php $tierPriceHtml = $this->getTierPriceHtml($_selections[0]); ?>
+        <?php endif; ?>
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
+    <?php else:?>
+        <select onchange="bundle.changeSelection(this)" id="bundle-option-<?php echo $_option->getId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]" class="bundle-option-<?php echo $_option->getId() ?><?php if ($_option->getRequired()) echo ' required-entry' ?> bundle-option-select change-container-classname">
+        <?php
+    foreach ($_selections as $_selection):
+    $length = $_selection->getLength();
+
+?>
+            <?php if ($_selection->getSelectionCanChangeQty() && $this->_isSelected($_selection)): ?>
+                <?php $tierPriceHtml = $this->getTierPriceHtml($_selection); ?>
+            <?php endif; ?>
+    <option value="<?php echo $_selection->getSelectionId() ?>"<?php if ($this->_isSelected($_selection)) echo ' selected="selected"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>><?php echo $length; ?></option>
+        <?php endforeach; ?>
+        </select>
+    <?php endif; ?>
+</td>
+<?php endif; ?>
+<td>
+    <?php if ($this->_showSingle()): ?>
+<?php
+$price = array_pop(explode('$', str_replace('+', '', strip_tags($this->getSelectionTitlePrice($_selections[0])))));
+echo $price;
+?>
+        <?php if ($_selections[0]->getSelectionCanChangeQty()): ?>
+<?php $tierPriceHtml = $this->getTierPriceHtml($_selections[0]); ?>
+        <?php endif; ?>
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
+    <?php else:?>
+        <span id="bundle-option-<?php echo $_option->getId() ?>-tier-prices"></span>
+    <?php endif; ?>
+</td>
+<td>
+<span class="qty-holder">
+        <input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>" type="text" pattern="\d*" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>"/>
+    </span>
+    </td>
+</tr>
+
+
+<?php else:
+/*** OTHER PRODUCT VIEW ***/
+?>
+
+
+<?php
+                    $_product = Mage::getModel('catalog/product');
+$_product->load($_selections[0]->getProductId()); 
+$img_url = Mage::getModel('catalog/product_media_config')->getMediaUrl($_product->getImage()); 
+if(substr($img_url, -29) == '/store/media/catalog/product/')
+    echo '<div style="display:none">';
+else 
+    echo '<div>';
+
+?>
+
+<strong><?php echo $_selections[0]->getDisplayName() ?></strong>                    
+<a href="<?php echo $img_url; ?>" target="_blank" data-lightbox="lightbox">
+<img src="<?php echo $img_url; ?>" />
+</a>
+
+<p><?php echo $_selections[0]->getShortDescription() ?></p>
+<div>
+    <?php if ($this->_showSingle()): 
+                    
+                    $price = '$'.array_pop(explode('$', str_replace('+', '', strip_tags($this->getSelectionTitlePrice($_selections[0])))));
+echo  $price;
+    if ($_selections[0]->getSelectionCanChangeQty()){
+        $tierPriceHtml = $this->getTierPriceHtml($_selections[0]); 
+    }
+?>
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
+    <?php else:?>
+        <span id="bundle-option-<?php echo $_option->getId() ?>-tier-prices"></span>
+    <?php endif; ?>
+</div>
+<span class="qty-holder">
+Quantity: 
+        <input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>" type="text" pattern="\d*" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>"/>
+    </span>
+</div>
+<?php endif; ?>
+

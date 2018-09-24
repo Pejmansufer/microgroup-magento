@@ -1,0 +1,4 @@
+"sku","type","simples_skus","configurable_attributes","categories","length","visibility","name","short_description","guage","stainlesssteel","insidediam","minid","maxid","outsidediam","minod","maxod","wall","minwall","maxwall","weight","price","tier_price:_all_"
+"304h065-1ft","simple","","","Hypodermic Tubing","1 FT","1","304H06.5","304 Stainless Steel   WD 6.5 Gauge Hypodermic:  OD 0.188 X ID 0.168 - 1 Foot Length","6.5","304","0.168","0.165","0.171","0.188","0.187","0.189","0.01","0.008","0.012","0.02","13.93","20:7.72;100:4.29"
+"304h065-5ft","simple","","","Hypodermic Tubing","5 FT","1","304H06.5","304 Stainless Steel   WD 6.5 Gauge Hypodermic:  OD 0.188 X ID 0.168 - 5 Foot Length","6.5","304","0.168","0.165","0.171","0.188","0.187","0.189","0.01","0.008","0.012","0.1","55.73","4:30.87;20:19.49"
+"304h065","configurable","304h065-1ft,304h065-5ft","length","Hypodermic Tubing","","4","304h065","","","","","","","","","","","","","","",""

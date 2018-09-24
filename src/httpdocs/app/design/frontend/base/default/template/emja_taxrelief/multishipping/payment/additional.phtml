@@ -1,0 +1,87 @@
+<?php $taxReliefCode = $this->getTaxReliefCode() ?>
+<dt>
+    <input id="customer-has-tax-relief" name="payment[customer_has_tax_relief]" type="checkbox" class="checkbox" <?php echo (!empty($taxReliefCode) ? ' checked="checked" value="1"': ' value="0" ') ?> onclick="if (this.checked) {$(this).value=1; $('customer-tax-relief-info').show();} else {$(this).value=0; $('customer-tax-relief-info').hide();}">
+    <label for="customer-has-tax-relief"><?php echo $this->helper('emja_taxrelief')->__(Mage::getStoreConfig('emja_taxrelief/labels/checkbox_text'))?></label>
+</dt>
+<dd id="customer-tax-relief-info" style="display:none;">
+    <ul class="form-list">
+       <li>
+           <?php if (Mage::getStoreConfig('emja_taxrelief/labels/above_tax_number')):?>
+               <span><?php echo Mage::getStoreConfig('emja_taxrelief/labels/above_tax_number');?></span><br/>
+           <?php endif;?>
+           <label class="required" for="customer-tax-relief-code"><?php echo $this->isTaxReliefCodeRequired() ? '<em>*</em>' : ''?><?php echo $this->helper('emja_taxrelief')->__(Mage::getStoreConfig('emja_taxrelief/labels/tax_number_label'))?></label>
+           <div class="input-box"><input id="customer-tax-relief-code" value="<?php echo $this->escapeHtml($taxReliefCode) ?>" name="payment[tax_relief_code]" type="text" class="input-text<?php echo $this->isTaxReliefCodeRequired() ? ' required-entry' : ''?>" autocomplete="off"></div>
+       </li>
+       <li>
+           <?php if (Mage::getStoreConfig('emja_taxrelief/labels/above_tax_state')):?>
+               <span><?php echo Mage::getStoreConfig('emja_taxrelief/labels/above_tax_state');?></span><br/>
+           <?php endif;?>
+            <input type="hidden" value="<?php echo $this->getAddress()->getCountryId()?>" id="emja_taxrelief:country_id">
+            <label id="emja_taxrelief_state_label" class="required" for="customer-tax-relief-state"><?php echo $this->isTaxReliefStateRequired() != 0 ? '<em>*</em>' : ''?><?php echo $this->helper('emja_taxrelief')->__(Mage::getStoreConfig('emja_taxrelief/labels/tax_state_label'))?></label>
+            <div class="input-box">
+                <select id="emja_taxrelief_region_id" name="payment[tax_relief_state_id]" title="<?php echo $this->__('State/Province') ?>" class="<?php echo $this->isTaxReliefStateRequired() != 0 ? 'validate-select' : ''?>" style="display:none;" onchange="$('emja_taxrelief:region').value=$$('select#emja_taxrelief_region_id option[value='+this.value+']')[0].innerHTML">
+                    <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                </select>
+                <script type="text/javascript">
+                //<![CDATA[
+                    $('emja_taxrelief_region_id').setAttribute('defaultValue', "<?php echo $this->getAddress()->getRegionId() ?>");
+                //]]>
+                </script>
+                <input type="text" id="emja_taxrelief:region" name="payment[tax_relief_state]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->isTaxReliefStateRequired() == 1 ? 'required-entry' : ''?>"  />
+            </div>
+       </li>
+    </ul>
+</dd>
+<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+<script type="text/javascript">
+var taxReliefElm = $('customer-has-tax-relief');
+taxReliefElm.removeAttribute('disabled');
+taxReliefElm.observe('click', function(e) {
+    if (this.checked) {
+        $('customer-tax-relief-info').show();
+        $('emja_taxrelief:region').removeAttribute('disabled');
+        $('customer-tax-relief-code').removeAttribute('disabled');
+    } else {
+        $('customer-tax-relief-info').hide();
+        $('emja_taxrelief:region').setAttribute('disabled', 'disabled');
+        $('customer-tax-relief-code').setAttribute('disabled', 'disabled');
+    }
+});
+
+if (taxReliefElm.checked) {
+    $('customer-tax-relief-info').show();
+    $('emja_taxrelief:region').removeAttribute('disabled');
+    $('customer-tax-relief-code').removeAttribute('disabled');
+}
+
+var taxReliefRegionUpdater = new RegionUpdater('billing:country_id', 'emja_taxrelief:region', 'emja_taxrelief_region_id', countryRegions, undefined, undefined);
+
+enableTaxReliefInputs = function(){
+    $('customer-has-tax-relief').removeAttribute('disabled');
+    $$('#customer-tax-relief-info input').each(function(e){$(e).removeAttribute('disabled')});
+    $$('#customer-tax-relief-info select').each(function(e){$(e).removeAttribute('disabled')});
+    if($('emja_taxrelief_region_id').value){
+        $('emja_taxrelief:region').value=$$('select#emja_taxrelief_region_id option[value='+$('emja_taxrelief_region_id').value+']')[0].innerHTML;
+    }
+    $$('#customer-tax-relief-info em').each(function(e){e.show();});
+
+    <?php if ($this->isTaxReliefStateRequired() == 2) : ?>
+    if ($('billing:region_id').hasClassName('validate-select') && $('billing:region_id').getStyle('display') != 'none') {
+        $('emja_taxrelief_state_label').select('em')[0].setStyle('display:block');
+        $('emja_taxrelief_region_id').addClassName('validate-select');
+    } else {
+        $('emja_taxrelief_state_label').select('em')[0].setStyle('display:none');
+        $('emja_taxrelief_region_id').removeClassName('validate-select');
+    }
+    <?php endif; ?>
+
+    <?php if ($this->isTaxReliefStateRequired() == 1) : ?>
+    $('billing:country_id').observe('change',function(){
+        if ($('emja_taxrelief_state_label').select('em')[0].getStyle('display') != 'block') {
+            $('emja_taxrelief_state_label').select('em')[0].show();
+        }
+    })
+    <?php endif; ?>
+};
+setTimeout("enableTaxReliefInputs()",300);
+</script>

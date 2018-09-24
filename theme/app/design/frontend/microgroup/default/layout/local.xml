@@ -1,0 +1,84 @@
+<layout version="0.1.0">
+
+  <default translate="label" module="page">
+
+    <reference name="top.links">
+      <remove name="wishlist_link" />
+    </reference>
+
+    <reference name="right">
+      <remove name="wishlist_sidebar" />
+    </reference>
+
+    <reference name="head">
+
+      <action method="removeItem"><type>skin_css</type><name>css/madison-island.css</name></action>
+      <action method="addItem"><type>skin_css</type><name>css/microgroupstore.css</name></action>
+      <action method="addItem"><type>skin_css</type><name>css/microgroup-mobile.css</name></action>
+      <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+      <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+      <action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+    </reference>
+    <reference name="product.info.additional">
+      <remove name="product_tag_list" />
+    </reference>
+
+    
+  </default>
+  <catalog_product_view translate="label">
+
+    <reference name="head">
+      <action method="addItem"><type>skin_js</type><name>js/jquery.stickit.min.js</name></action>
+      <action method="addItem"><type>skin_js</type><name>js/jquery.stickytableheaders.min.js</name></action>
+      <action method="addItem"><type>skin_js</type><name>js/lightbox.min.js</name></action>
+      <action method="addItem"><type>skin_css</type><name>css/lightbox.css</name></action>
+
+    </reference>
+
+    <reference name="header">
+
+      <block type="core/template_facade" name="product.info.container1" as="container1">
+        <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+        <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+
+      </block>
+    </reference>
+
+    <reference name="content">
+      <remove name="product.info.options.wrapper.bottom" />
+    </reference>
+
+  </catalog_product_view>
+  
+  <PRODUCT_TYPE_bundle translate="label" module="bundle">
+    <reference name="head">
+      <action method="removeItem"><type>skin_js</type><name>js/bundle.js</name></action>
+    </reference>
+  </PRODUCT_TYPE_bundle>
+
+  <checkout_cart_index translate="label">
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+    <reference name="head">
+      <action method="addItem"><type>skin_js</type><name>js/jquery.stickit.min.js</name></action>
+    </reference>
+    <reference name="left">
+      <block type="cms/block" name="left_name_home" before="-">
+	<action method="setBlockId"><block_id>left_nav_home</block_id></action>
+      </block> 
+      <block type="cms/block" name="left_cart_btns" before="left_nav_home">
+	<action method="setBlockId"><block_id>left_cart_btns</block_id></action>
+      </block> 
+    </reference>
+  </checkout_cart_index>
+
+  <customer_account>
+    <reference name="left">
+      <remove name="catalog.compare.sidebar"/>
+      <remove name="sale.reorder.sidebar" />
+      
+    </reference>
+  </customer_account>
+  
+</layout>

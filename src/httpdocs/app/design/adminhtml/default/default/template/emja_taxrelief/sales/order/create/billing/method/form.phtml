@@ -1,0 +1,152 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if($this->hasMethods()): ?>
+<div id="order-billing_method_form">
+    <dl class="payment-methods">
+    <?php
+        $_methods       = $this->getMethods();
+        $_methodsCount  = count($_methods);
+        $_counter = 0;
+    ?>
+    <?php foreach ($_methods as $_method): $_code = $_method->getCode(); $_counter++; ?>
+        <dt>
+        <?php if ($_methodsCount > 1): ?>
+            <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> <?php if ($_counter == $_methodsCount) : ?>class="validate-one-required-by-name"<?php endif;?>/>
+        <?php else :?>
+            <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
+        <?php endif;?>
+
+            <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+        </dt>
+        <dd>
+            <?php echo $this->getChildHtml('payment.method.'.$_code) ?>
+        </dd>
+    <?php endforeach; ?>
+<?php if (Mage::helper('emja_taxrelief')->allowedForCustomer($this->getQuote()->getCustomer())) : ?>
+    <?php $taxReliefCode = $this->getTaxReliefCode() ?>
+    <?php
+    $paymentData = Mage::app()->getRequest()->getParam('payment', array());
+    $enabled = false;
+    if (!isset($paymentData['customer_has_tax_relief']) || ((string)$paymentData['customer_has_tax_relief'] !== '0')) {
+        $enabled = $taxReliefCode || $this->customerHasTaxRelief();
+    }
+    ?>
+<dt>
+    <input id="customer-has-tax-relief" name="payment[customer_has_tax_relief]" type="checkbox" <?php echo ($enabled ? 'checked="checked"' : '') ?> class="checkbox" value="1" onclick="taxReliefClick(this)" >
+    <label for="customer-has-tax-relief"><?php echo $this->helper('emja_taxrelief')->__('Tax Exempt')?></label>
+</dt>
+<dd  id="customer-tax-relief-info" style="display:none;">
+    <ul class="form-list">
+       <li>
+           <label for="customer-tax-relief-code"><?php echo $this->helper('emja_taxrelief')->__('Tax Exempt Number')?>&nbsp;<span class="required">*</span></label>
+           <div class="input-box"><input id="customer-tax-relief-code" name="payment[tax_relief_code]" type="text" class="required-entry input-text" autocomplete="off" value="<?php echo (!empty($taxReliefCode) ? $taxReliefCode :'')?>"></div>
+       </li>
+       <li>
+            <label><?php echo $this->helper('emja_taxrelief')->__('Tax Exempt State')?>&nbsp;<span class="required">*</span></label>
+            <div class="input-box">
+                <input type="text" id="emja_taxrelief:region" name="payment[tax_relief_state]" title="<?php echo $this->__('State/Province') ?>" class="required-entry input-text" value="<?php echo $this->customerHasTaxRelief()?$this->getTaxReliefState():'';?>"  />
+            </div>
+       </li>
+    </ul>
+</dd>
+<?php endif ?>
+        
+<script type="text/javascript">
+    setTimeout("enableTaxReliefInputs()",10);
+    function taxReliefClick(checkbox) {
+        if ($(checkbox).checked) {
+            $('customer-tax-relief-info').show();
+            $('customer-tax-relief-info').getElementsBySelector('input').each(function(e) {
+                $(e).removeAttribute('disabled');
+            });
+        }
+        else {
+            $('customer-tax-relief-info').getElementsBySelector('input').each(function(e) {
+                $(e).disable();
+            });
+            $('customer-tax-relief-info').hide();
+        }
+
+        var isCheckedTaxRelief = '0';
+        if ($(checkbox).checked) {
+            isCheckedTaxRelief = '1';
+        }
+        order.setPaymentMethod(order.paymentMethod);
+        $('customer-has-tax-relief').removeAttribute('disabled');
+        if ($(checkbox).checked) {
+            $('customer-tax-relief-info').show();
+            $('customer-tax-relief-info').getElementsBySelector('input').each(function(e) {
+                $(e).removeAttribute('disabled');
+            });
+        }
+        else {
+            $('customer-tax-relief-info').getElementsBySelector('input').each(function(e) {
+                $(e).disable();
+            });
+            $('customer-tax-relief-info').hide();
+        }
+        var data = {};
+        data['order[payment_method]'] = order.paymentMethod;
+        data['payment[customer_has_tax_relief]'] = isCheckedTaxRelief;
+        order.loadArea(['card_validation', 'billing_method','totals'], true, data);
+        // customer_has_tax_relief
+        //order.loadArea(['billing_method','totals'], true, {'payment[customer_has_tax_relief]' : isCheckedTaxRelief});
+    }
+
+    enableTaxReliefInputs = function(){
+        payment.switchMethod = function (method) {
+            this.setPaymentMethod(method);
+
+            $('order-billing_method_form').select('input#customer-has-tax-relief').each(function(elem){
+                $(elem).removeAttribute('disabled');
+                taxReliefClick(elem);
+            });
+
+            var data = {};
+            data['order[payment_method]'] = method;
+            this.loadArea(['card_validation'], true, data);
+        }.bind(order);
+
+        $('customer-has-tax-relief').removeAttribute('disabled');
+        if ($('customer-has-tax-relief').checked) {
+            $('customer-tax-relief-info').show();
+            $('customer-tax-relief-info').getElementsBySelector('input').each(function(e) {
+                $(e).removeAttribute('disabled');
+            });
+        }
+        if ($('order-shipping_address_region_id').selectedIndex) {
+            var stateValue = $('order-shipping_address_region_id').options[$('order-shipping_address_region_id').selectedIndex].text;
+            $('emja_taxrelief:region').value = stateValue;
+        }
+    }
+</script>
+    </dl>
+</div>
+<script type="text/javascript">order.setPaymentMethod('<?php echo $this->getSelectedMethodCode() ?>')</script>
+<?php else: ?>
+    <?php echo Mage::helper('sales')->__('No Payment Methods') ?>
+<?php endif; ?>

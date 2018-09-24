@@ -1,0 +1,55 @@
+bundled,name,sku,status,image,short_description,price,weight,categories,url_key,description,display_name
+,500-01,50001,1,saw/50001.png,Base Plate,57.14,1,Saw,saw50001,Base Plate,500-01
+,500-02,50002,1,saw/50002.png,Motor Housing with Sharp Vac Plug,42.86,0.7,Saw,saw50002,Motor Housing with Sharp Vac Plug,500-02
+X,500-03,50003,1,saw/50003.png,Shroud,68.57,0.05,Saw,saw50003,Shroud,500-03
+X,500-04/1,50004,1,saw/50004.png,Pulleys,23.48,0.05,Saw,saw50004,Pulleys,500-04/1
+,500-04R,50004R,1,saw/50004R.png,Drive Pulley,31.46,0.03,Saw,saw50004R,Drive Pulley,500-04R
+,500-05,50005,1,saw/50005.png,Hex Nut (Motor),3,0.01,Saw,saw50005,Hex Nut (Motor),500-05
+,500-06,50006,1,saw/50006.png,Washer (Motor),1.366,0.01,Saw,saw50006,Washer (Motor),500-06
+X,500-07,50007,1,saw/50007.png,Belt Drive,15.6,0.2,Saw,saw50007,Belt Drive,500-07
+,500-08,50008,1,saw/50008.png,Set Screws (LG Pulley),2.408,0.01,Saw,saw50008,Set Screws (LG Pulley),500-08
+X,500-09,50009,1,saw/50009.png,Pivot Post Spring,10.6,0.02,Saw,saw50009,Pivot Post Spring,500-09
+,500-10,50010,1,saw/50010.png,Set Screws (Pivot Post),2.334,0.01,Saw,saw50010,Set Screws (Pivot Post),500-10
+,500-11,50011,1,saw/50011.png,Pivot Post Pin,33.33,0.27,Saw,saw50011,Pivot Post Pin,500-11
+,500-12,50012,1,saw/50012.png,Set Screws (SM Pulley),2.262,0.01,Saw,saw50012,Set Screws (SM Pulley),500-12
+,500-13B,50013B,1,saw/50013B.png,Bolt for Handle,6.67,0.02,Saw,saw50013B,Bolt for Handle,500-13B
+,500-13W,50013W,1,saw/50013W.png,Washer for Handle,5.068,0.01,Saw,saw50013W,Washer for Handle,500-13W
+X,500-14,50014,1,saw/50014.png,Handle Grip,10.91,0.04,Saw,saw50014,Handle Grip,500-14
+,500-15,50015,1,saw/50015.png,Handle (tubing),35.71,0.1,Saw,saw50015,Handle (tubing),500-15
+,500-16,50016,1,saw/50016.png,Minitul Label,7,0.01,Saw,saw50016,Minitul Label,500-16
+,500-17,50017,1,saw/50017.png,Caution Label,1,0.01,Saw,saw50017,Caution Label,500-17
+,500-17A,50017A,1,saw/50017A.png,Warning Label,1,0.01,Saw,saw50017A,Warning Label,500-17A
+,500-17B,50017B,1,saw/50017B.png,MicroGroup Label,7.67,0.01,Saw,saw50017B,MicroGroup Label,500-17B
+,500-17C,50017C,1,saw/50017C.png,MOD500 Saw Serial Number,2.5,0.01,Saw,saw50017C,MOD500 Saw Serial Number,500-17C
+X,500-18,50018,1,saw/50018.png,Pulleys,33.34,0.12,Saw,saw50018,Pulleys,500-18
+,500-18R,50018R,1,saw/50018R.png,Shaft Pulley,33.34,0.03,Saw,saw50018R,Shaft Pulley,500-18R
+,500-20,50020,1,saw/50020.png,Main Frame,33.33,0.81,Saw,saw50020,Main Frame,500-20
+,500-22,50022,1,saw/50022.png,Lock Nut (stop screw),2.1,0.02,Saw,saw50022,Lock Nut (stop screw),500-22
+,500-23,50023,1,saw/50023.png,Stop Screw,8.78,0.01,Saw,saw50023,Stop Screw,500-23
+,500-24S,50024S,1,saw/50024S.png,Shroud Screws,7.8,0.01,Saw,saw50024S,Shroud Screws,500-24S
+,500-24W,50024W,1,saw/50024W.png,Shroud Washers,0.696,0.01,Saw,saw50024W,Shroud Washers,500-24W
+,500-25,50025,1,saw/50025.png,Vise Bolt,14.55,0.02,Saw,saw50025,Vise Bolt,500-25
+,500-26,50026,1,saw/50026.png,Vise Washer,0.849,0.01,Saw,saw50026,Vise Washer,500-26
+,500-27,50027,1,saw/50027.png,Stop Plate Bolt,1.728,0.02,Saw,saw50027,Stop Plate Bolt,500-27
+,500-28,50028,1,saw/50028.png,Stop Plate,33.33,0.08,Saw,saw50028,Stop Plate,500-28
+,500-29,50029,1,saw/50029.png,Pivot Post Screws,3.92,0.01,Saw,saw50029,Pivot Post Screws,500-29
+,500-30,50030,1,saw/50030.png,Stop Plate Nuts,0.656,0.01,Saw,saw50030,Stop Plate Nuts,500-30
+,500-31,50031,1,saw/50031.png,Pivot Post Block,42.86,1,Saw,saw50031,Pivot Post Block,500-31
+X,500-32A,50032A,1,saw/50032A.png,Vise Assembly (including Vise Handle),200,2.03,Saw,saw50032A,Vise Assembly (including Vise Handle),500-32A
+,500-33A,50033A,1,saw/50033A.png,Vise Stop & Locking Screw Assemly,35.71,0.03,Saw,saw50033A,Vise Stop & Locking Screw Assemly,500-33A
+,500-34L,50034L,1,saw/50034L.png,Vise Stop & Locking Long Screw,6.67,0.01,Saw,saw50034L,Vise Stop & Locking Long Screw,500-34L
+,500-34S,50034S,1,saw/50034S.png,Vise Stop & Locking Short Screw,9.12,0.01,Saw,saw50034S,Vise Stop & Locking Short Screw,500-34S
+,500-35,50035,1,saw/50035.png,Dust Shield,35.71,0.52,Saw,saw50035,Dust Shield,500-35
+X,500-36,50036,1,saw/50036.png,Filter Cap,23.53,0.1,Saw,saw50036,Filter Cap,500-36
+X,500-37,50037,1,saw/50037.png,Filter,10,0.1,Saw,saw50037,Filter,500-37
+,500-38,50038,1,saw/50038.png,Saw Shaft,42.86,0.29,Saw,saw50038,Saw Shaft,500-38
+X,500-39,50039,1,saw/50039.png,Shaft bearings,11.56,0.285,Saw,saw50039,Shaft bearings,500-39
+,500-40,50040,1,saw/50040.png,Saw Shaft Nut,2.2,0.01,Saw,saw50040,Saw Shaft Nut,500-40
+,500-41B,50041B,1,saw/50041B.png,Blade Flange,25,0.14,Saw,saw50041B,Blade Flange,500-41B
+X,500-42,50042,1,saw/50042.png,Wrench Set,14.2,0.202,Saw,saw50042,Wrench Set,500-42
+X,500-44,50044,1,saw/50044.png,Foot Switch & Cord,80.5,3.033,Saw,saw50044,Foot Switch & Cord,500-44
+X,500-45,50045,1,saw/50045.png,Power Cord,11.27,0.512,Saw,saw50045,Power Cord,500-45
+X,500-46,50046,1,saw/50046.png,Motor 1/5 H.P.,164.29,3.07,Saw,saw50046,Motor 1/5 H.P.,500-46
+,500-47,50047,1,saw/50047.png,Vise Handle,23.53,0.03,Saw,saw50047,Vise Handle,500-47
+X,70200-13,7020013,1,saw/7020013.png,Boblube Stick,12.25,0.12,Saw,saw7020013,Boblube Stick,70200-13
+X,MOD500,MOD501,MOD502,MOD503,MOD504,750,MOD506,MOD507,MOD508,Small Diameter Cut-Off Saw,MOD500

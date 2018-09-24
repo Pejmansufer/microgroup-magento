@@ -1,0 +1,8 @@
+WEB_UNSECURE_URL="http://mgwp.lappi.dev/store"
+WEB_SECURE_URL="http://mgwp.lappi.dev/store"
+HOSTNAME="mgwp.lappi.dev"
+NBPROJECT_TITLE="MicroGroup - Magento"
+DATABASE_USER=root
+DATABASE_PASSWORD=root
+DATABASE_ROOT_PASSWORD=root
+SS_PATH=~/w/mamp/shared-server

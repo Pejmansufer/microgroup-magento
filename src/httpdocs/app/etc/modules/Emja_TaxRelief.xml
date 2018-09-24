@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Emja_TaxRelief>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Tax />
+                <Mage_Checkout />
+                <Mage_Sales />
+            </depends>
+        </Emja_TaxRelief>
+    </modules>
+</config>
