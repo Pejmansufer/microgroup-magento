@@ -7,10 +7,10 @@
     </modules>
     <global>
         <models>
-            <Mage4Helpdev_Disablefrontend>
+            <mage4helpdev_disablefrontend>
                 <class>Mage4Helpdev_Disablefrontend_Model</class>
                 <resourceModel>mage4helpdev_disablefrontend_resource</resourceModel>
-            </Mage4Helpdev_Disablefrontend>
+            </mage4helpdev_disablefrontend>
         </models>
     </global>
     <frontend>
