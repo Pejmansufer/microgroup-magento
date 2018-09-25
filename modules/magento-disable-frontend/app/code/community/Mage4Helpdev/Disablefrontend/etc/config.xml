@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage4Helpdev_Disablefrontend>
+            <version>0.1.0</version>
+        </Mage4Helpdev_Disablefrontend>
+    </modules>
+    <global>
+        <models>
+            <Mage4Helpdev_Disablefrontend>
+                <class>Mage4Helpdev_Disablefrontend_Model</class>
+                <resourceModel>mage4helpdev_disablefrontend_resource</resourceModel>
+            </Mage4Helpdev_Disablefrontend>
+        </models>
+    </global>
+    <frontend>
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <mage4helpdev_disablefrontend>
+                        <type>singleton</type>
+                        <class>mage4helpdev_disablefrontend/observer</class>
+                        <method>httpResponseSendBefore</method>
+                    </mage4helpdev_disablefrontend>
+                </observers>
+            </http_response_send_before>
+        </events>
+    </frontend>
+</config>

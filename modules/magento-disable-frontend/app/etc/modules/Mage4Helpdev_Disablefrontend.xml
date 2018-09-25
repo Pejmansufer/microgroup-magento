@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage4Helpdev_Disablefrontend>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Core/>
+
+            </depends>
+        </Mage4Helpdev_Disablefrontend>
+    </modules>
+</config>
